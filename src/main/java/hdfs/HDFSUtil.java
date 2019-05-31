@@ -19,40 +19,40 @@ public class HDFSUtil {
     @Before
     public void init() throws Exception {
         Configuration conf = new Configuration();
-        fs = FileSystem.get(new URI("hdfs://192.168.178.130：9000/"), conf);
+        fs = FileSystem.get(new URI("hdfs://192.168.178.130:9000/"), conf);
     }
 
     @Test
     public void uploadFile() throws IOException {
-        Path f = new Path("/data.log");
+        Path f = new Path("/test");
         FSDataOutputStream os = fs.create(f);
-        FileInputStream is = new FileInputStream(new File(""));
+        FileInputStream is = new FileInputStream(new File("./a.txt"));
         IOUtils.copy(is, os);
     }
 
     @Test
     public void uploadFileSimple() throws IOException {
-        Path src = new Path("home/hadoop/baby.jpg");
-        Path dest = new Path("home/hadoop/baby.jpg");
+        Path src = new Path("./a.txt");
+        Path dest = new Path("/test/a.txt");
         fs.copyFromLocalFile(src, dest);
     }
 
     @Test
     public void downloadFile() throws Exception {
-        FSDataInputStream is = fs.open(new Path("/baby.jpg"));
-        FileOutputStream os = new FileOutputStream(new File(""));
+        FSDataInputStream is = fs.open(new Path("/wc/output/part-r-00000"));
+        FileOutputStream os = new FileOutputStream(new File("./a.txt"));
         IOUtils.copy(is, os);
     }
 
     @Test
     public void mkdir() throws Exception {
-        boolean mkdirs = fs.mkdirs(new Path(""));
+        boolean mkdirs = fs.mkdirs(new Path("/test"));
         System.out.println(mkdirs ? "it is OK" : "is is failed");
     }
 
     @Test
     public void rmFileOrDir() throws Exception {
-        fs.delete(new Path(""), true);
+        fs.delete(new Path("/test"), true);
     }
 
     @Test
@@ -67,4 +67,5 @@ public class HDFSUtil {
             }
         }
     }
+
 }

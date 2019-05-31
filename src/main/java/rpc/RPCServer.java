@@ -5,6 +5,7 @@ import org.apache.hadoop.ipc.RPC;
 
 import java.io.IOException;
 
+//上传到服务器用hadoop jar xxx.jar rpc.RPCServer启动Server
 public class RPCServer {
     public static void main(String[] args) throws IOException {
         RPC.Builder builder = new RPC.Builder(new Configuration());

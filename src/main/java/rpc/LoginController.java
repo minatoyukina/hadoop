@@ -8,7 +8,7 @@ import java.net.InetSocketAddress;
 
 public class LoginController {
     public static void main(String[] args) throws IOException {
-        LoginServiceInterface proxy = RPC.getProxy(LoginServiceInterface.class, LoginServiceInterface.versionID, new InetSocketAddress("192.168.178.130", 10000), new Configuration());
+        LoginServiceInterface proxy = RPC.getProxy(LoginServiceInterface.class, LoginServiceInterface.versionID, new InetSocketAddress("127.0.0.1", 10000), new Configuration());
         String result = proxy.login("baby", "1314520");
         System.out.println(result);
     }

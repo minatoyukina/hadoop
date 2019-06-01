@@ -19,6 +19,13 @@ public class FlowBean implements WritableComparable<FlowBean> {
         this.s_flow = up_flow + d_flow;
     }
 
+    public void set(String phoneNB, long up_flow, long d_flow) {
+        this.phoneNB = phoneNB;
+        this.up_flow = up_flow;
+        this.d_flow = d_flow;
+        this.s_flow = up_flow + d_flow;
+    }
+
     public FlowBean() {
     }
 

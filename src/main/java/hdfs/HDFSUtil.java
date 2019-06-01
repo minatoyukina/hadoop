@@ -19,7 +19,7 @@ public class HDFSUtil {
     @Before
     public void init() throws Exception {
         Configuration conf = new Configuration();
-        fs = FileSystem.get(new URI("hdfs://192.168.178.130:9000/"), conf);
+        fs = FileSystem.get(new URI("hdfs://db1:9000/"), conf);
     }
 
     @Test
@@ -39,7 +39,7 @@ public class HDFSUtil {
 
     @Test
     public void downloadFile() throws Exception {
-        FSDataInputStream is = fs.open(new Path("/wc/output/part-r-00000"));
+        FSDataInputStream is = fs.open(new Path("/action/enhance/tocrawl"));
         FileOutputStream os = new FileOutputStream(new File("./a.txt"));
         IOUtils.copy(is, os);
     }

@@ -47,11 +47,16 @@ public class HBaseDao {
         Get get = new Get(Bytes.toBytes("rk0001"));
         get.setMaxVersions(5);
         Result result = table.get(get);
+        byte[] bytes = result.getValue(Bytes.toBytes("base_info"), Bytes.toBytes("age"));
+        System.out.println(Bytes.toString(bytes));
+
         for (Cell cell : result.rawCells()) {
-            String family = new String(cell.getFamilyArray());
+            String family = Bytes.toString(cell.getFamilyArray());
             System.out.println(family);
-            String qualifier = new String(cell.getQualifierArray());
+            String qualifier = Bytes.toString(cell.getQualifierArray());
             System.out.println(qualifier);
+            String value = Bytes.toString(cell.getValueArray());
+            System.out.println(value);
         }
     }
 

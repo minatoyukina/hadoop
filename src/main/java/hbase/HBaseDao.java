@@ -17,6 +17,7 @@ public class HBaseDao {
     @Before
     public void init() throws IOException {
         Configuration conf = HBaseConfiguration.create();
+        //zk集群hostname
         conf.set("hbase.zookeeper.quorum", "db1,db2,db3");
         conf.set("hbase.zookeeper.property.clientPort", "2181");
         conf.set("hbase.master", "db1:16000");

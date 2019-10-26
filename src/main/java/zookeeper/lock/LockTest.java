@@ -1,18 +1,14 @@
-package zookeeper.lock.zk;
+package zookeeper.lock;
 
 import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.junit.Test;
-import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
-import zookeeper.lock.Callback;
 import zookeeper.lock.redis.RedisDistributedLockTemplate;
-import zookeeper.lock.redis.RedisLockInternals;
+import zookeeper.lock.zk.ZKDistributedLockTemplate;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -99,23 +95,4 @@ public class LockTest {
         endLatch.await();
     }
 
-    @Test
-    public void test() {
-        JedisPool pool = new JedisPool("127.0.0.1", 6379);
-        Jedis jedis = pool.getResource();
-//        RedisLockInternals internals=new RedisLockInternals(pool);
-//        String test1 = internals.createRedisKey("test1");
-//        System.out.println(test1);
-        String luaScript = "" +
-                "\nlocal r=tonumber(redis.call('SETNX',KEYS[1],ARGV[1]));" +
-                "\nredis.call('PEXPIRE',KEYS[1],ARGV[2]);" +
-                "\nreturn r";
-        List<String> keys = new ArrayList<>();
-        keys.add("abc1234");
-        List<String> args = new ArrayList<>();
-        args.add("cde");
-        args.add("60000");
-        jedis.eval(luaScript, keys, args);
-        jedis.close();
-    }
 }
